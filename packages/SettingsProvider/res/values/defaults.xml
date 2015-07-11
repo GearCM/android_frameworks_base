@@ -268,4 +268,7 @@
     <!-- Default for Settings.System.SWAP_VOLUME_KEYS_ON_ROTATION -->
     <bool name="def_swap_volume_keys_on_rotation">false</bool>
 
+    <!-- Default value of Settings.System.NOISE_SUPPRESSION -->
+    <bool name="def_noise_suppression">false</bool>
+
 </resources>
