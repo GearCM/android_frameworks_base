@@ -219,6 +219,7 @@ public class GpsLocationProvider implements LocationProviderInterface {
     private static final int REMOVE_LISTENER = 9;
     private static final int INJECT_NTP_TIME_FINISHED = 10;
     private static final int DOWNLOAD_XTRA_DATA_FINISHED = 11;
+    private static final int GET_DEFAULT_APN = 13;
 
     // Request setid
     private static final int AGPS_RIL_REQUEST_SETID_IMSI = 1;
@@ -396,6 +397,9 @@ public class GpsLocationProvider implements LocationProviderInterface {
     private final GpsNetInitiatedHandler mNIHandler;
 
     private String mDefaultApn;
+
+    // true for old GPS HALs
+    private boolean mLegacyGpsHAL = false;
 
     // Wakelocks
     private final static String WAKELOCK_KEY = "GpsLocationProvider";
@@ -751,6 +755,10 @@ public class GpsLocationProvider implements LocationProviderInterface {
         // Battery statistics service to be notified when GPS turns on or off
         mBatteryStats = IBatteryStats.Stub.asInterface(ServiceManager.getService(
                 BatteryStats.SERVICE_NAME));
+
+        // Check if we have a legacy GPS HAL
+        mLegacyGpsHAL = mContext.getResources().getBoolean(
+                com.android.internal.R.bool.config_legacyGpsHAL);
 
         mLastKnownMccMnc = getKnownMccMnc(mContext);
 
@@ -1127,7 +1135,8 @@ public class GpsLocationProvider implements LocationProviderInterface {
         }
         if (mSuplServerHost != null
                 && mSuplServerPort > TCP_MIN_PORT
-                && mSuplServerPort <= TCP_MAX_PORT) {
+                && mSuplServerPort <= TCP_MAX_PORT
+                && !mLegacyGpsHAL) {
             native_set_agps_server(AGPS_TYPE_SUPL, mSuplServerHost, mSuplServerPort);
         }
     }
@@ -2190,6 +2199,10 @@ public class GpsLocationProvider implements LocationProviderInterface {
                 case UPDATE_LOCATION:
                     handleUpdateLocation((Location)msg.obj);
                     break;
+                case GET_DEFAULT_APN:
+                    mDefaultApn = getDefaultApn();
+                    if (DEBUG) Log.d(TAG,"Observer mDefaultApn=" + mDefaultApn);
+                    break;
             }
             if (msg.arg2 == 1) {
                 // wakelock was taken for this message, release it
@@ -2201,8 +2214,7 @@ public class GpsLocationProvider implements LocationProviderInterface {
     ContentObserver mDefaultApnObserver = new ContentObserver(mHandler) {
         @Override
         public void onChange(boolean selfChange) {
-            mDefaultApn = getDefaultApn();
-            if (DEBUG) Log.d(TAG, "Observer mDefaultApn=" + mDefaultApn);
+            sendMessage(GET_DEFAULT_APN, 0, null);
         }
     };
 

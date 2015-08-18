@@ -17,21 +17,9 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="profileNameDefault">Standard</string>
-  <string name="profileNameWork">Jobb</string>
-  <string name="profileNameHome">Hemma</string>
-  <string name="profileNameSilent">Tyst</string>
-  <string name="profileNameNight">Natt</string>
-  <string name="profileNameAutomobile">Bil</string>
-  <string name="profileGroupPhone">Telefon</string>
-  <string name="profileGroupCalendar">Kalender</string>
-  <string name="profileGroupGmail">Gmail</string>
-  <string name="profileGroupEmail">E-post</string>
-  <string name="profileGroupSMS">SMS</string>
-  <string name="wildcardProfile">Annan</string>
-  <string name="profile_none">Ingen</string>
   <string name="profile_picker_title">Profiler</string>
   <string name="global_action_choose_profile">Profil</string>
+  <string name="profile_none">Ingen</string>
   <string name="global_action_screenshot">Skärmdump</string>
   <string name="permlab_receiveProtectedSms">ta emot skyddade SMS</string>
   <string name="permdesc_receiveProtectedSms">Tillåter att appen få ett inkommande skyddat SMS.</string>
@@ -217,4 +205,8 @@ modifiera det tema som du har tillämpat.</string>
   <string name="quick_settings_tile_flashlight_not_summary">Tryck på för att stänga av</string>
   <string name="storage_sd_dock_card">SD-kort i docka</string>
   <string name="fingerprint_default_name">Fingeravtryck <xliff:g id="number">%d</xliff:g></string>
+  <string name="permlab_accessFingerprintService">tillgång till fingeravtryckstjänst</string>
+  <string name="permdesc_accessFingerprintService">Tillåter en app att komma åt fingeravtryckstjänst. Appen kan lägga till, ta bort, byta namn och autentisera mot fingeravtryck</string>
+  <string name="permlab_resetBatteryStats">återställa batteristatistik</string>
+  <string name="permdesc_resetBatteryStats">Tillåter en app att återställa nuvarande lågnivådata för batterianvändning.</string>
 </resources>

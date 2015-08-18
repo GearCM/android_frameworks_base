@@ -41,8 +41,6 @@ import android.text.style.TtsSpan;
 import android.util.SparseIntArray;
 
 import static com.android.internal.telephony.PhoneConstants.SUBSCRIPTION_KEY;
-import static com.android.internal.telephony.TelephonyProperties.PROPERTY_ICC_OPERATOR_ISO_COUNTRY;
-import static com.android.internal.telephony.TelephonyProperties.PROPERTY_OPERATOR_ISO_COUNTRY;
 import static com.android.internal.telephony.TelephonyProperties.PROPERTY_OPERATOR_IDP_STRING;
 
 import java.util.Locale;
@@ -158,6 +156,7 @@ public class PhoneNumberUtils
     static {
         sCdmaLocalRewriteWhitelist = new SparseArray<RewriteRule>();
         addRewriteRule(62, "ID", "0"); // indonesia
+        addRewriteRule(380, "UA", "0"); // ukraine
 
         StringBuffer regex = new StringBuffer();
         regex.append("[+](");
@@ -2598,8 +2597,8 @@ public class PhoneNumberUtils
             } else {
                 RewriteRule rewriteRule =
                         getCdmaLocalRewriteRule(networkDialStr,
-                                SystemProperties.get(PROPERTY_OPERATOR_ISO_COUNTRY, ""),
-                                SystemProperties.get(PROPERTY_ICC_OPERATOR_ISO_COUNTRY, ""));
+                                TelephonyManager.getDefault().getNetworkCountryIso(),
+                                TelephonyManager.getDefault().getSimCountryIso());
                 if (rewriteRule != null) {
                     retStr = rewriteRule.apply(networkDialStr);
                 } else {
