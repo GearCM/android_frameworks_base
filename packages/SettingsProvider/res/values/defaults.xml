@@ -275,4 +275,7 @@
     <!-- Default value of Settings.System.NOISE_SUPPRESSION -->
     <bool name="def_noise_suppression">false</bool>
 
+    <!-- Default for Settings.System.SYSTEM_PROFILES_ENABLED -->
+    <bool name="def_system_profiles_enabled">true</bool>
+
 </resources>
