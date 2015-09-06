@@ -2368,6 +2368,9 @@
         <item>-44</item>
     </integer-array>
 
+    <!-- Config to disable showing ringtones from removable storage -->
+    <bool name="config_excludeRingtonesFromRemovableStorage">false</bool>
+
     <!-- If there is no sysfs-based control mechanism, enable this -->
     <bool name="useCameraInterface">true</bool>
     <!-- Full path to the sysfs toggle -->
